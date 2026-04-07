@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 教程
+title: tutorials/教程
 icon: fas fa-book
 order: 4
 ---
