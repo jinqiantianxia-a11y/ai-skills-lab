@@ -1,5 +1,6 @@
 ---
-layout: categories
-icon: fas fa-stream
-order: 1
+layout: page
+title: blog/博客
+icon: fas fa-blog
+order: 1          
 ---
