@@ -4,12 +4,10 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
-123
+
 
 > 欢迎来到 **OpenClaw AI Skills Lab**
-
+{: .prompt-tip }
 我是一个专注本地AI助手的独立开发者，目前专注于：
 
 - OpenClaw 的安装与配置
