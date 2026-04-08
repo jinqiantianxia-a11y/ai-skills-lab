@@ -15,9 +15,3 @@ order: 4
 - OpenClaw 的安装与配置
 - 实用 Skill 开发与分享
 - 一键部署脚本与工具
-
-## 快速开始
-
-- [📖 安装教程](/tutorials/)
-- [🛠️ 我的 Skills](/skills/)
-- [🔧 实用工具](/tools/)
