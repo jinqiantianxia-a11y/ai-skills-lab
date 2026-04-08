@@ -17,3 +17,7 @@ order: 4
 - 安装教程（开发中）
 - 我的 Skills（开发中）
 - 实用工具（开发中）
+
+- [📖 安装教程](/tutorials/)
+- [🛠️ 我的 Skills](/skills/)
+- [🔧 实用工具](/tools/)
