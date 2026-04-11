@@ -1,5 +1,34 @@
 <!-- The Side Bar -->
+<style>
+#sidebar .custom-collapse {
+  cursor: pointer;
+}
 
+#sidebar .custom-collapse .collapse-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+#sidebar .custom-collapse .collapse-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+#sidebar .custom-collapse.open .collapse-body {
+  max-height: 300px;
+}
+
+#sidebar .custom-collapse .arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+}
+
+#sidebar .custom-collapse.open .arrow {
+  transform: rotate(90deg);
+}
+</style>
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
   <header class="profile-wrapper">
     <a href="{{ '/' | relative_url }}" id="avatar" class="rounded-circle">
