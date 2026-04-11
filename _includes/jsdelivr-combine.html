@@ -1,0 +1,9 @@
+{% assign urls = include.urls | split: ',' %}
+
+{% for url in urls %}
+  {% if url contains '//' %}
+    <script defer src="{{ url }}"></script>
+  {% else %}
+    <script defer src="{{ url | relative_url }}"></script>
+  {% endif %}
+{% endfor %}
