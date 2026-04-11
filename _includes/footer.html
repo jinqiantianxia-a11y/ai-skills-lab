@@ -64,20 +64,61 @@
     log('pjax 完成');
     initScroll();
   });
+  console.log('🔥 Sidebar JS 已加载');
+
   let collapseInited = false;
 
   function initCollapse() {
-    if (collapseInited) return;
+    console.log('🚀 initCollapse 执行');
+
+    if (collapseInited) {
+      console.log('⚠️ 已初始化，跳过');
+      return;
+    }
+
     collapseInited = true;
 
+    const sidebar = document.querySelector('#sidebar');
+    console.log('📦 sidebar:', sidebar);
+
+    if (!sidebar) {
+      console.log('❌ 找不到 sidebar');
+      return;
+    }
+
+    const headers = document.querySelectorAll('.collapse-header');
+    console.log('📦 找到 collapse-header 数量:', headers.length);
+
     document.addEventListener('click', function(e) {
+      console.log('🖱️ 点击事件触发:', e.target);
+
       const header = e.target.closest('.collapse-header');
-      if (!header) return;
+
+      if (!header) {
+        console.log('⛔ 不是 collapse-header');
+        return;
+      }
+
+      console.log('✅ 点击了 collapse-header');
 
       const parent = header.parentElement;
+      console.log('📦 parent:', parent);
+
       parent.classList.toggle('open');
+
+      console.log('🎯 当前状态:', parent.classList.contains('open'));
     });
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOMContentLoaded');
+    initCollapse();
+  });
+
+  document.addEventListener('pjax:complete', function() {
+    console.log('⚡ pjax:complete');
+    initCollapse();
+  });
 
 })();
 </script>
