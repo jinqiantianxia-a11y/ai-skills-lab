@@ -1,127 +1,44 @@
+<!-- _includes/footer.html -->
 <script>
 (function() {
+  // ===== 侧边栏滚动位置记忆 =====
   var STORAGE_KEY = 'chirpy-sidebar-scroll';
-  var sidebar = null;
-  var debugEnabled = true;
 
-  function log() {
-    if (!debugEnabled) return;
-    console.log('[SidebarScroll]', arguments);
+  function initSidebarScroll() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+
+    // 恢复位置
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+    // 保存位置
+    const save = () => sessionStorage.setItem(STORAGE_KEY, sidebar.scrollTop);
+    sidebar.addEventListener('scroll', save, { passive: true });
   }
 
-  function getSidebar() {
-    if (sidebar && sidebar.isConnected) return sidebar;
-    sidebar = document.querySelector('#sidebar');
-    return sidebar;
-  }
+  // ===== 教程折叠菜单 =====
+  function initCollapse() {
+    document.querySelectorAll('.custom-collapse').forEach(item => {
+      const header = item.querySelector('.collapse-header');
+      if (!header) return;
 
-  function restoreScroll() {
-    var sidebarEl = getSidebar();
-    if (!sidebarEl) {
-      log('restoreScroll: 找不到 sidebar');
-      return;
-    }
-    var saved = sessionStorage.getItem(STORAGE_KEY);
-    log('读取位置:', saved);
-
-    if (saved !== null) {
-      var pos = parseInt(saved, 10);
-      if (!isNaN(pos)) {
-        sidebarEl.scrollTop = pos;
-        log('恢复成功:', pos);
-      }
-    }
-  }
-
-  function saveScroll(reason) {
-    var sidebarEl = getSidebar();
-    if (!sidebarEl) return;
-
-    var currentPos = sidebarEl.scrollTop;
-    sessionStorage.setItem(STORAGE_KEY, currentPos);
-    log('保存位置:', currentPos, '原因:', reason);
-  }
-
-  function initScroll() {
-    log('初始化');
-
-    var sidebarEl = getSidebar();
-    if (!sidebarEl) return;
-
-    var links = sidebarEl.querySelectorAll('a');
-    links.forEach(function(link) {
-      link.addEventListener('click', function() {
-        saveScroll('click');
+      header.addEventListener('click', () => {
+        item.classList.toggle('open');
       });
     });
-
-    restoreScroll();
   }
 
-  document.addEventListener('DOMContentLoaded', initScroll);
-
-  document.addEventListener('pjax:complete', function() {
-    log('pjax 完成');
-    initScroll();
-  });
-  console.log('🔥 Sidebar JS 已加载');
-
-  let collapseInited = false;
-
-  function initCollapse() {
-    console.log('🚀 initCollapse 执行');
-
-    if (collapseInited) {
-      console.log('⚠️ 已初始化，跳过');
-      return;
-    }
-
-    collapseInited = true;
-
-    const sidebar = document.querySelector('#sidebar');
-    console.log('📦 sidebar:', sidebar);
-
-    if (!sidebar) {
-      console.log('❌ 找不到 sidebar');
-      return;
-    }
-
-    const headers = document.querySelectorAll('.collapse-header');
-    console.log('📦 找到 collapse-header 数量:', headers.length);
-
-    document.addEventListener('click', function(e) {
-      console.log('🖱️ 点击事件触发:', e.target);
-
-      const header = e.target.closest('.collapse-header');
-
-      if (!header) {
-        console.log('⛔ 不是 collapse-header');
-        return;
-      }
-
-      console.log('✅ 点击了 collapse-header');
-
-      const parent = header.parentElement;
-      console.log('📦 parent:', parent);
-
-      parent.classList.toggle('open');
-
-      console.log('🎯 当前状态:', parent.classList.contains('open'));
-    });
-  }
-
+  // 初始化
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('📄 DOMContentLoaded');
+    initSidebarScroll();
     initCollapse();
   });
 
+  // PJAX 支持（Chirpy 使用 PJAX）
   document.addEventListener('pjax:complete', function() {
-    console.log('⚡ pjax:complete');
+    initSidebarScroll();
     initCollapse();
   });
-  document.addEventListener("pjax:complete", function () {
-    // initGiscus();
-  });
-
 })();
 </script>
