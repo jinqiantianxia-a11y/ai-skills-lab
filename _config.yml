@@ -109,13 +109,15 @@ social_preview_image: # string, local or CORS resources
 toc: true
 
 comments:
-  provider: giscus
+  # Global switch for the post-comment system.
+  provider: giscus   # ← 必须有这一行
+
   giscus:
     repo: "tongyiningai/ai-skills-lab"
     repo_id: "R_kgDOR8EOoQ"
     category: "Announcements"
     category_id: "DIC_kwDOR8EOoc4C6pyb"
-    mapping: "pathname"
+    mapping: "pathname"      # 推荐用 pathname
     strict: "1"
     input_position: "bottom"
     lang: "zh-CN"
