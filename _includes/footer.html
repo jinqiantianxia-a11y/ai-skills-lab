@@ -1,23 +1,18 @@
-<!-- _includes/footer.html -->
+
 <script>
 (function() {
-  // ===== 侧边栏滚动位置记忆 =====
   var STORAGE_KEY = 'chirpy-sidebar-scroll';
 
   function initSidebarScroll() {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar) return;
-
-    // 恢复位置
     const saved = sessionStorage.getItem(STORAGE_KEY);
     if (saved) sidebar.scrollTop = parseInt(saved, 10);
 
-    // 保存位置
     const save = () => sessionStorage.setItem(STORAGE_KEY, sidebar.scrollTop);
     sidebar.addEventListener('scroll', save, { passive: true });
   }
 
-  // ===== 教程折叠菜单 =====
   function initCollapse() {
     document.querySelectorAll('.custom-collapse').forEach(item => {
       const header = item.querySelector('.collapse-header');
@@ -29,13 +24,10 @@
     });
   }
 
-  // 初始化
   document.addEventListener('DOMContentLoaded', function() {
     initSidebarScroll();
     initCollapse();
   });
-
-  // PJAX 支持（Chirpy 使用 PJAX）
   document.addEventListener('pjax:complete', function() {
     initSidebarScroll();
     initCollapse();
